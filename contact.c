@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-struct contact {
+struct contact{
     char name[50];
     char phone[50];
     struct contact *next;
@@ -12,13 +12,13 @@ struct contact *head = NULL;
 
 
 /*inserting at the beginning*/
-void insertatbeginning() {
+void insertatbeginning(){
     struct contact *newcontact;
-    (struct contact *)malloc(sizeof(struct contact));
+    newcontact=(struct contact *)malloc(sizeof(struct contact));
     printf("Enter name: ");
-    scanf("%s", contact->name);
+    scanf("%s", newcontact->name);
     printf("Enter phone number: ");
-    scanf("%s", contact->phone);
+    scanf("%s", newcontact->phone);
     newcontact->next = head;
     head = newcontact;
     printf("Contact added successfully!\n");
@@ -26,13 +26,13 @@ void insertatbeginning() {
 
 
 /*inserting at the end*/
-void insertatend() {
+void insertatend(){
     struct contact *newcontact, *temp;
     (struct contact *)malloc(sizeof(struct contact));
     printf("Enter name: ");
-    scanf("%s", contact->name);
+    scanf("%s", newcontact->name);
     printf("Enter phone number: ");
-    scanf("%s", contact->phone);
+    scanf("%s", newcontact->phone);
     newcontact->next = NULL;
     if(head==NULL){
         head=newcontact;
@@ -89,6 +89,7 @@ void searchcontact(){
     printf("Contact not found!\n");
 }
 
+
 /*display all contacts*/
 void displaycontacts(){
     struct contact *temp;
@@ -102,4 +103,64 @@ void displaycontacts(){
         printf("Name: %s,\nPhone: %s\n", temp->name, temp->phone);
         temp=temp->next;
     }
+}
+
+/*free all allocated memory*/
+void freecontacts(){
+    struct contact *temp;
+    while(head!=NULL){
+        temp=head;
+        head=head->next;
+        free(temp);
+    }
+}
+
+
+int main(){
+    int choice;
+    do
+    {
+        printf("CONTACT MANAGEMENT SYSTEM\n");
+        printf("1. Insert at beginning\n");
+        printf("2. Insert at end\n");
+        printf("3. Delete contact\n");
+        printf("4. Search contact\n");
+        printf("5. Display contacts\n");
+        printf("6. Free contacts\n");
+        printf("7. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+
+        switch(choice)
+        {
+            case 1:
+                insertatbeginning();
+                break;
+            case 2:
+                insertatend();
+                break;
+            case 3:
+                deletecontact();
+                break;
+            case 4:
+                searchcontact();
+                break;
+            case 5:
+                displaycontacts();
+                break;
+            case 6:
+                freecontacts();
+                break;
+            case 7:
+                exit(0);
+            default:
+                printf("Invalid choice!\n");
+        }
+    } while (choice!=7);
+
+
+    return 0;
+    
 }
